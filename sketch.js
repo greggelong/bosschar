@@ -6,15 +6,15 @@ let micbutt;
 let cnv;
 
 function preload() {
-  img = loadImage("worker.jpg");
+  img = loadImage("workerClr.jpg");
 }
 
 function setup() {
-  cnv = createCanvas(800, 800);
+  cnv = createCanvas(900, 900);
   let cx = (windowWidth - cnv.width) / 2;
   let cy = (windowHeight - cnv.height) / 2;
   cnv.position(cx, cy);
-  vscale = width / 40;
+  vscale = width / 45;
   pixelDensity(1);
   img.resize(width / vscale, height / vscale); //
   print(vscale, width / vscale, img.width);
@@ -43,8 +43,8 @@ function draw() {
     for (let x = 0; x < img.width; x++) {
       let iclr = img.get(x, y);
       noStroke();
-      fill(iclr);
-      if ([22, 23].includes(y) & [21, 22, 23, 24, 25, 26, 27].includes(x)) {
+
+      if (iclr[0] > 127 && iclr[1] < 60) {
         // Get the current volume level from the microphone
         let vol = mic.getLevel();
 
@@ -52,6 +52,8 @@ function draw() {
         n = map(vol, 0, 0.1, 0, 255); // Adjust max volume threshold as needed
 
         fill(n, 0, 0);
+      } else {
+        fill(iclr);
       }
 
       //rect(x*vscale,y*vscale,vscale+1,vscale+1)
